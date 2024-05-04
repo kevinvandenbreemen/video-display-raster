@@ -61,6 +61,11 @@ public class SwingRasterRender implements RasterRender<JPanel> {
                         int x = evt.getX() / squareWidth;
                         int y = evt.getY() / squareHeight;
 
+                        //  Don't continue if the mouse is outside the bounds of the raster
+                        if(x < 0 || y < 0 || x >= raster.getXDim() || y >= raster.getYDim()){
+                            return;
+                        }
+
                         int pixelValue = Byte.toUnsignedInt(raster.getPixel(x, y));
                         setToolTipText("Pixel value: " + pixelValue);
                     }
@@ -89,22 +94,10 @@ public class SwingRasterRender implements RasterRender<JPanel> {
 
         frame.setLayout(new FlowLayout());
 
-        SwingRasterRender render = new SwingRasterRender(400, 400);
+        SwingRasterRender render = new SwingRasterRender(width, height);
 
         frame.add(render.renderRaster(raster));
         frame.pack();
-
-        //  Provide for detecting resize:
-        frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-
-                render.setPixelSizeX(frame.getWidth());
-                render.setPixelSizeY(frame.getHeight());
-
-                frame.getContentPane().getComponent(0).repaint();
-            }
-        });
 
         frame.setVisible(true);
         return  frame;
