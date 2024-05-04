@@ -38,7 +38,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/vandenbreemen/video_display_raster")
+            url = uri("https://maven.pkg.github.com/vandenbreemen/video-display-raster")
             credentials {
                 username = System.getenv("USERNAME")
                 password = System.getenv("TOKEN")
