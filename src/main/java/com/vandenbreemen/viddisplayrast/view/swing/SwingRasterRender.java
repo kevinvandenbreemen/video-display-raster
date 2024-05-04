@@ -5,27 +5,17 @@ import com.vandenbreemen.viddisplayrast.view.RasterRender;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 /**
  * Renders a raster as a Swing component
  */
 public class SwingRasterRender implements RasterRender<JPanel> {
 
-    private int pixelSizeX;
-    private int pixelSizeY;
+    private final int pixelSizeX;
+    private final int pixelSizeY;
 
     public SwingRasterRender(int pixelSizeX, int pixelSizeY){
         this.pixelSizeX = pixelSizeX;
-        this.pixelSizeY = pixelSizeY;
-    }
-
-    public void setPixelSizeX(int pixelSizeX) {
-        this.pixelSizeX = pixelSizeX;
-    }
-
-    public void setPixelSizeY(int pixelSizeY) {
         this.pixelSizeY = pixelSizeY;
     }
 
