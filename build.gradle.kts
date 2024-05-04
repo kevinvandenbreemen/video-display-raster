@@ -31,7 +31,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
             groupId = "com.vandenbreemen"
-            artifactId = "video_display_raster"
+            artifactId = "video-display-raster"
             version = currentVersion
         }
     }
