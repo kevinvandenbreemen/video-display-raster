@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    id("maven-publish")
 }
 
+//  Master version value -- update this to conjtrol both publishing and everything else!
+val currentVersion = "1.0.0"
+
+
 group = "com.vandenbreemen"
-version = "1.0.0"
+version = currentVersion
 
 repositories {
     mavenCentral()
@@ -16,4 +21,28 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+//  See also
+//  https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle#publishing-packages-to-github-packages
+//  For the moment publishing will only work out on github actions....
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            groupId = "com.vandenbreemen"
+            artifactId = "video_display_raster"
+            version = currentVersion
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/vandenbreemen/video_display_raster")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
