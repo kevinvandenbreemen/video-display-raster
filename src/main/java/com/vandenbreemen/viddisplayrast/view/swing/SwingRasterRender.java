@@ -43,7 +43,13 @@ public class SwingRasterRender implements RasterRender<JPanel> {
 
                 for(int y=0; y<raster.getYDim(); y++){
                     for(int x=0; x<raster.getXDim(); x++){
-                        g.setColor(raster.getPixel(x, y) > 0 ? Color.WHITE : Color.BLACK);
+
+                        //  Compute the color as grayscale based on the pixel value
+                        //  Make a Grayscale color:
+                        int pixelValue = Byte.toUnsignedInt(raster.getPixel(x, y));
+                        Color pixelColor = new Color(pixelValue, pixelValue, pixelValue);
+
+                        g.setColor(pixelColor);
                         g.fillRect(x*squareWidth, y*squareHeight, squareWidth, squareHeight);
                     }
                 }
@@ -54,7 +60,9 @@ public class SwingRasterRender implements RasterRender<JPanel> {
                     public void mouseMoved(java.awt.event.MouseEvent evt) {
                         int x = evt.getX() / squareWidth;
                         int y = evt.getY() / squareHeight;
-                        setToolTipText("Pixel value: " + raster.getPixel(x, y));
+
+                        int pixelValue = Byte.toUnsignedInt(raster.getPixel(x, y));
+                        setToolTipText("Pixel value: " + pixelValue);
                     }
                 });
             }
@@ -77,6 +85,7 @@ public class SwingRasterRender implements RasterRender<JPanel> {
         JFrame frame = new JFrame("Raster Render Test");
 
         frame.setBounds(100, 100,  width, height);
+        frame.setResizable(false);
 
         frame.setLayout(new FlowLayout());
 

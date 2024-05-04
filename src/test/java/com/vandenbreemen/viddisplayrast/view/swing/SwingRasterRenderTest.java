@@ -13,10 +13,10 @@ public class SwingRasterRenderTest {
         //  Given
         DisplayRaster raster = new DisplayRaster(10, 10);
 
-        raster.setPixel(4, 4, (byte)1);
-        raster.setPixel(5, 4, (byte)1);
-        raster.setPixel(5, 5, (byte)1);
-        raster.setPixel(4, 5, (byte)1);
+        raster.setPixel(4, 4, (byte)100);
+        raster.setPixel(5, 4, (byte)100);
+        raster.setPixel(5, 5, (byte)120);
+        raster.setPixel(4, 5, (byte)188);
 
 
         JFrame frame = SwingRasterRender.showTestRenderWindow(raster);
