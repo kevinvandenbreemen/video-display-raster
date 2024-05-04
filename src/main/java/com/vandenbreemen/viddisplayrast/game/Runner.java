@@ -17,6 +17,7 @@ public class Runner {
 
     public Runner(GameDataRequirements requirements) {
         this.requirements = requirements;
+        raster = new DisplayRaster(requirements.getScreenWidth(), requirements.getScreenHeight());
     }
 
     /**
