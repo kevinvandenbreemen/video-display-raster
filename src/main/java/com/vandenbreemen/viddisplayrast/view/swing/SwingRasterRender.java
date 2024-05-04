@@ -47,6 +47,16 @@ public class SwingRasterRender implements RasterRender<JPanel> {
                         g.fillRect(x*squareWidth, y*squareHeight, squareWidth, squareHeight);
                     }
                 }
+
+                //  Add a tooltip that shows the pixel value when user hovers their mouse over that pixel
+                addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    @Override
+                    public void mouseMoved(java.awt.event.MouseEvent evt) {
+                        int x = evt.getX() / squareWidth;
+                        int y = evt.getY() / squareHeight;
+                        setToolTipText("Pixel value: " + raster.getPixel(x, y));
+                    }
+                });
             }
         };
 
