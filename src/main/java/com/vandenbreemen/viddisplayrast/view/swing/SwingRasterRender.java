@@ -54,9 +54,20 @@ public class SwingRasterRender implements RasterRender<JPanel> {
         return panel;
     }
 
-    public static void showTestRenderWindow(DisplayRaster raster){
+    /**
+     * Generates a simple JFrame that displays the current contents of your raster
+     * @param raster
+     * @return
+     */
+    public static JFrame showTestRenderWindow(DisplayRaster raster){
+
+        int width = 400;
+        int height = 400;
+
         JFrame frame = new JFrame("Raster Render Test");
-        frame.setSize(400, 400);
+
+        frame.setBounds(100, 100,  width, height);
+
         frame.setLayout(new FlowLayout());
 
         SwingRasterRender render = new SwingRasterRender(400, 400);
@@ -77,6 +88,7 @@ public class SwingRasterRender implements RasterRender<JPanel> {
         });
 
         frame.setVisible(true);
+        return  frame;
     }
 
 }

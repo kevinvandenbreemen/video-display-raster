@@ -13,35 +13,17 @@ public class SwingRasterRenderTest {
         //  Given
         DisplayRaster raster = new DisplayRaster(10, 10);
 
+        raster.setPixel(4, 4, (byte)1);
+        raster.setPixel(5, 4, (byte)1);
         raster.setPixel(5, 5, (byte)1);
-        raster.setPixel(6, 5, (byte)1);
-        raster.setPixel(5, 6, (byte)1);
-        raster.setPixel(6, 6, (byte)1);
+        raster.setPixel(4, 5, (byte)1);
 
 
-        JFrame frame = new JFrame("Raster Render Test");
+        JFrame frame = SwingRasterRender.showTestRenderWindow(raster);
+
+        //  Exit on close
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLayout(new FlowLayout());
 
-        SwingRasterRender render = new SwingRasterRender(400, 400);
-
-        frame.add(render.renderRaster(raster));
-        frame.pack();
-
-        //  Provide for detecting resize:
-        frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-
-                render.setPixelSizeX(frame.getWidth());
-                render.setPixelSizeY(frame.getHeight());
-
-                frame.getContentPane().getComponent(0).repaint();
-            }
-        });
-
-        frame.setVisible(true);
     }
 
 }
