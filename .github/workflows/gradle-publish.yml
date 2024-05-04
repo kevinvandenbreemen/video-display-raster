@@ -37,6 +37,8 @@ jobs:
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
+    # According to https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#considering-cross-repository-access, the
+    # token is automatically created before each job begins, so I should not have to create it....
     - name: Publish to GitHub Packages
       run: ./gradlew publish
       env:
