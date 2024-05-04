@@ -21,5 +21,19 @@ public class DisplayRaster {
     }
 
 
+    public int getYDim() {
+        return yDim;
+    }
 
+    public int getXDim() {
+        return xDim;
+    }
+
+    public byte getPixel(int x, int y) {
+        return raster[x][y];
+    }
+
+    public void setPixel(int x, int y, byte b) {
+        raster[x][y] = b;
+    }
 }
