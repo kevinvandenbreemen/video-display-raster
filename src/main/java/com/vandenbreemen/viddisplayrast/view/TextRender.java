@@ -6,9 +6,10 @@ import com.vandenbreemen.viddisplayrast.data.DisplayRaster;
  * More of a test of rendering items on the screen, renders
  * the entire raster as ascii art
  */
-public class TextRender {
+public class TextRender implements RasterRender<String> {
 
 
+    @Override
     public String renderRaster(DisplayRaster raster) {
         //  Generate a grid of ascii squares for pixels with a value greater than 0
         StringBuilder builder = new StringBuilder();
