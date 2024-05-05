@@ -22,8 +22,11 @@ public class GameDataRequirements {
         this.spriteHeight = spriteHeight;
         this.maxBytes = maxBytes;
         this.spriteData = new byte[maxBytes];   //  XXX Where does this actually come from???
+    }
 
-        System.out.println("Game data requirements: " + screenWidth + "x" + screenHeight + " sprites: " + spriteWidth + "x" + spriteHeight + " max bytes: " + maxBytes + ", allowing for a total of " + (maxBytes / (spriteWidth * spriteHeight)) + " sprites");
+    @Override
+    public String toString() {
+        return (getClass().getSimpleName() + ":  Game data requirements: screenDim:  " + screenWidth + "x" + screenHeight + " -  sprites: " + spriteWidth + "x" + spriteHeight + " max bytes: " + maxBytes + ", allowing for a total of " + (maxBytes / (spriteWidth * spriteHeight)) + " sprites");
     }
 
     public int getScreenWidth() {

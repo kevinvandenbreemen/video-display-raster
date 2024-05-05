@@ -23,6 +23,8 @@ class RunnerTest {
     public void setup() {
         requirements =
                 new GameDataRequirements(SCREEN_WIDTH, SCREEN_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT, MAX_BYTES);
+
+        System.out.println("Setup complete with requirements:\n" + requirements.toString());
     }
 
 
