@@ -59,7 +59,7 @@ public class GameDataRequirements {
         if(data.length != spriteWidth * spriteHeight){
             throw new IllegalArgumentException("Data does not match sprite size");
         }
-        System.arraycopy(data, 0, spriteData, location, data.length);
+        System.arraycopy(data, 0, spriteData, location * (spriteHeight*spriteWidth), data.length);
     }
 
     public byte[] getSpriteData() {
