@@ -41,6 +41,14 @@ public class ByteColorDataInteractor {
         return (blue * COLOR_STEP) + (brightness* COLOR_STEP);
     }
 
+    /**
+     * Get the number of allowed colors for each channel
+     * @return
+     */
+    public int getChannelStepCount() {
+        return CHANNEL_STEP_COUNT;
+    }
+
 
     public byte getColorByte(int brightness, int red, int green, int blue) {
         //  First make sure that the values are within the color steps allowed
