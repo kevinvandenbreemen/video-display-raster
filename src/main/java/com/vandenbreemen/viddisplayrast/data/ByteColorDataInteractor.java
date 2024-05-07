@@ -22,23 +22,50 @@ public class ByteColorDataInteractor {
     public int getRed(byte colorByte) {
 
         int brightness = getBrightness(colorByte);
-        int red = (colorByte & 0b00110000) >> 4;
+        int red = getRedChannel(colorByte);
 
         return (red * COLOR_STEP) + (brightness* COLOR_STEP);
     }
 
     public int getGreen(byte colorByte) {
         int brightness = getBrightness(colorByte);
-        int green = (colorByte & 0b00001100) >> 2;
+        int green = getGreenChannel(colorByte);
 
         return (green * COLOR_STEP) + (brightness* COLOR_STEP);
     }
 
     public int getBlue(byte colorByte) {
         int brightness = getBrightness(colorByte);
-        int blue = colorByte & 0b00000011;
+        int blue = getBlueChannel(colorByte);
 
         return (blue * COLOR_STEP) + (brightness* COLOR_STEP);
+    }
+
+    /**
+     * Get the raw red channel number (not the actual color value)
+     * @param colorByte
+     * @return
+     */
+    public int getRedChannel(byte colorByte) {
+        return (colorByte & 0b00110000) >> 4;
+    }
+
+    /**
+     * Get the raw green channel number (not the actual color value)
+     * @param colorByte
+     * @return
+     */
+    public int getGreenChannel(byte colorByte) {
+        return (colorByte & 0b00001100) >> 2;
+    }
+
+    /**
+     * Get the raw blue channel number (not the actual color value)
+     * @param colorByte
+     * @return
+     */
+    public int getBlueChannel(byte colorByte) {
+        return colorByte & 0b00000011;
     }
 
     /**
