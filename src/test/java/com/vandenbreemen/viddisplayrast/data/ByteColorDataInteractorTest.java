@@ -100,4 +100,27 @@ class ByteColorDataInteractorTest {
         assertEquals(84, blue, "Blue value should be 84");
     }
 
+    @Test
+    public void shouldGenerateColorByteFromBrightnessAndRGBValues() {
+        ByteColorDataInteractor interactor = new ByteColorDataInteractor();
+        byte color = interactor.getColorByte(3, 3, 3, 3);
+        assertEquals((byte)0b11111111, color, "Color byte should be 0b11111111");
+    }
+
+    @Test
+    public void shouldGenerateColorWithDarkerTone() {
+        ByteColorDataInteractor interactor = new ByteColorDataInteractor();
+        byte color = interactor.getColorByte(1, 1, 1, 1);
+        assertEquals((byte)0b01010101, color, "Color byte should be 0b01010101");
+    }
+
+    @Test
+    public void shouldGenerateColorWithDarkerTone2() {
+        ByteColorDataInteractor interactor = new ByteColorDataInteractor();
+        byte color = interactor.getColorByte(1, 1, 2, 1);
+        assertEquals((byte)0b01011001, color, "Color byte should be 0b01010101");
+
+        System.out.println("Red = " + interactor.getRed(color));
+    }
+
 }
