@@ -1,5 +1,6 @@
 package com.vandenbreemen.viddisplayrast.view.swing;
 
+import com.vandenbreemen.viddisplayrast.data.ByteColorDataInteractor;
 import com.vandenbreemen.viddisplayrast.data.DisplayRaster;
 import com.vandenbreemen.viddisplayrast.view.RasterRender;
 
@@ -13,10 +14,12 @@ public class SwingRasterRender implements RasterRender<JPanel> {
 
     private final int pixelSizeX;
     private final int pixelSizeY;
+    private ByteColorDataInteractor colorDataInteractor;
 
     public SwingRasterRender(int pixelSizeX, int pixelSizeY){
         this.pixelSizeX = pixelSizeX;
         this.pixelSizeY = pixelSizeY;
+        this.colorDataInteractor = new ByteColorDataInteractor();
     }
 
     @Override
@@ -36,8 +39,13 @@ public class SwingRasterRender implements RasterRender<JPanel> {
 
                         //  Compute the color as grayscale based on the pixel value
                         //  Make a Grayscale color:
-                        int pixelValue = Byte.toUnsignedInt(raster.getPixel(x, y));
-                        Color pixelColor = new Color(pixelValue, pixelValue, pixelValue);
+
+                        byte pixelValue = raster.getPixel(x, y);
+                        int red = colorDataInteractor.getRed(pixelValue);
+                        int green = colorDataInteractor.getGreen(pixelValue);
+                        int blue = colorDataInteractor.getBlue(pixelValue);
+
+                        Color pixelColor = new Color(red, green, blue);
 
                         g.setColor(pixelColor);
                         g.fillRect(x*squareWidth, y*squareHeight, squareWidth, squareHeight);
