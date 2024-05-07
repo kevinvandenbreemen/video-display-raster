@@ -14,7 +14,7 @@ public class ByteColorDataInteractor {
     private static final int NUM_COLOR_STEPS = CHANNEL_STEP_COUNT * 2;
     private static final int COLOR_STEP = (int) (double) (256 / NUM_COLOR_STEPS);
 
-    private int getBrightness(byte colorByte) {
+    public int getBrightness(byte colorByte) {
         //  Get the first 2 bits of the byte as a brightness value
         return (colorByte & 0b11000000) >> 6;
     }
