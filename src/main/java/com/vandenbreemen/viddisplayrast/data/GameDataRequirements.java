@@ -6,14 +6,14 @@ package com.vandenbreemen.viddisplayrast.data;
  */
 public class GameDataRequirements {
 
-    private int screenWidth;
-    private int screenHeight;
-    private int spriteWidth;
-    private int spriteHeight;
+    private final int screenWidth;
+    private final int screenHeight;
+    private final int spriteWidth;
+    private final int spriteHeight;
 
-    private int maxBytes;
+    private final int maxBytes;
 
-    private byte[] spriteData;
+    private final byte[] spriteData;
 
     public GameDataRequirements(int screenWidth, int screenHeight, int spriteWidth, int spriteHeight, int maxBytes){
         this.screenWidth = screenWidth;

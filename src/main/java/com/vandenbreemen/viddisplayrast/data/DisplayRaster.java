@@ -6,11 +6,11 @@ package com.vandenbreemen.viddisplayrast.data;
 public class DisplayRaster {
 
     //  Private x and y dimensions
-    private int xDim;
-    private int yDim;
+    private final int xDim;
+    private final int yDim;
 
     //  Raster proper
-    private byte[][] raster;
+    private final byte[][] raster;
 
     //  Constructor
     public DisplayRaster(int xDim, int yDim){

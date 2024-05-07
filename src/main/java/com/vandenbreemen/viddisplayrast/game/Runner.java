@@ -8,7 +8,7 @@ import com.vandenbreemen.viddisplayrast.data.GameDataRequirements;
  */
 public class Runner {
 
-    private GameDataRequirements requirements;
+    private final GameDataRequirements requirements;
 
     /**
      * Current frame being drawn
@@ -35,7 +35,7 @@ public class Runner {
     public void drawSpriteAt(int spriteIndex, int x, int y) {
         //  Verify screen position is valid
         if(x < 0 || y < 0 || x + requirements.getSpriteWidth() > requirements.getScreenWidth() || y + requirements.getSpriteHeight() > requirements.getScreenHeight()){
-            throw new IllegalArgumentException("Sprite position is invalid");
+            throw new IllegalArgumentException("Sprite position is invalid (x: " + x + ", y: " + y + ")");
         }
 
         //  Get the sprite data
