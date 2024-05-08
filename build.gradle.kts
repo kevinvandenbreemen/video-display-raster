@@ -4,7 +4,7 @@ plugins {
 }
 
 //  Master version value -- update this to conjtrol both publishing and everything else!
-val currentVersion = "1.0.2.4"
+val currentVersion = "1.0.2.5"
 
 
 group = "com.vandenbreemen"
