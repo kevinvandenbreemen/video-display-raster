@@ -21,22 +21,34 @@ public class ByteColorDataInteractor {
 
     public int getRed(byte colorByte) {
 
-        int brightness = getBrightness(colorByte);
         int red = getRedChannel(colorByte);
+        if(red == 0) {
+            return 0;
+        }
+
+        int brightness = getBrightness(colorByte);
 
         return (red * COLOR_STEP) + (brightness* COLOR_STEP);
     }
 
     public int getGreen(byte colorByte) {
-        int brightness = getBrightness(colorByte);
+
         int green = getGreenChannel(colorByte);
+        if(green == 0) {
+            return 0;
+        }
+        int brightness = getBrightness(colorByte);
 
         return (green * COLOR_STEP) + (brightness* COLOR_STEP);
     }
 
     public int getBlue(byte colorByte) {
-        int brightness = getBrightness(colorByte);
+
         int blue = getBlueChannel(colorByte);
+        if(blue == 0) {
+            return 0;
+        }
+        int brightness = getBrightness(colorByte);
 
         return (blue * COLOR_STEP) + (brightness* COLOR_STEP);
     }

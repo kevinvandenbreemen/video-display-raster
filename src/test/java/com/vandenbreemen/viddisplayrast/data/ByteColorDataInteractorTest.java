@@ -123,4 +123,19 @@ class ByteColorDataInteractorTest {
         System.out.println("Red = " + interactor.getRed(color));
     }
 
+    @Test
+    public void shouldNotIncreaseColorValueWithBrightnessIfItIsZero() {
+        ByteColorDataInteractor interactor = new ByteColorDataInteractor();
+        byte color = interactor.getColorByte(3, 0, 0, 0);
+
+        int red = interactor.getRed(color);
+        assertEquals(0, red, "Red value should be 0");
+
+        int green = interactor.getGreen(color);
+        assertEquals(0, green, "Green value should be 0");
+
+        int blue = interactor.getBlue(color);
+        assertEquals(0, blue, "Blue value should be 0");
+    }
+
 }
