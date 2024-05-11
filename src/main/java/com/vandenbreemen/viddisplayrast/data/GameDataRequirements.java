@@ -59,10 +59,28 @@ public class GameDataRequirements {
         if(data.length != spriteWidth * spriteHeight){
             throw new IllegalArgumentException("Data does not match sprite size");
         }
+
+        //  Verify the location is valid
+        if(location >= maxBytes / (spriteWidth * spriteHeight)){
+            throw new IllegalArgumentException("Location is invalid (" + location + "), max is " + (maxBytes / (spriteWidth * spriteHeight)));
+        }
+
         System.arraycopy(data, 0, spriteData, location * (spriteHeight*spriteWidth), data.length);
     }
 
     public byte[] getSpriteData() {
         return spriteData;
+    }
+
+    public byte[] getSpriteData(int location) {
+
+        //  Verify the location is valid
+        if(location >= maxBytes / (spriteWidth * spriteHeight)){
+            throw new IllegalArgumentException("Location is invalid (" + location + "), max is " + (maxBytes / (spriteWidth * spriteHeight)));
+        }
+
+        byte[] data = new byte[spriteWidth * spriteHeight];
+        System.arraycopy(spriteData, location * (spriteHeight*spriteWidth), data, 0, data.length);
+        return data;
     }
 }
