@@ -117,6 +117,9 @@ class RunnerTest {
 
         DisplayRaster raster = runner.newFrame();
         byte[][] result = new RawByteDataRasterRenderer().renderRaster(raster);
+
+        System.out.println(new TextRender().renderRaster(raster));
+
         assertArrayEquals(expected, result, "Should have rendered the sprites in the correct locations");
 
     }
