@@ -2,13 +2,13 @@ package com.vandenbreemen.viddisplayrast.game;
 
 import com.vandenbreemen.viddisplayrast.data.DisplayRaster;
 import com.vandenbreemen.viddisplayrast.data.GameDataRequirements;
+import com.vandenbreemen.viddisplayrast.data.RawByteDataRasterRenderer;
 import com.vandenbreemen.viddisplayrast.view.TextRender;
 import com.vandenbreemen.viddisplayrast.view.swing.SwingRasterRender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RunnerTest {
 
@@ -81,58 +81,46 @@ class RunnerTest {
 
     }
 
+    //  Just a test for me to verify a known good state before I go on with trying to add shifting the screen around
     @Test
-    public void shouldProperlyAddSprites() {
+    public void shouldAddSpritesInAWayThatIsTestableUsingByteArrayComparisons() {
+        GameDataRequirements simpleScreen = new GameDataRequirements(
+                8, 8,
+                2, 2,
+                8
+        );
 
-        //  Requirement to show only enough pixels for 2 8x8 sprites
-        GameDataRequirements requirements = new GameDataRequirements(32, 16, SPRITE_WIDTH, SPRITE_HEIGHT, 2 * SPRITE_WIDTH * SPRITE_HEIGHT);
-
-        Runner runner = new Runner(requirements);
-        requirements.setData(0, new byte[]{
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 100, 127, 100, 127, 0, 0,
-                0, 0,  100, 100, 100, 100, 0, 0,
-                0, 100, 80, 80, 80, 100, 100, 100,
-                0, 100, 100, 100, 80, 100, 0, 100,
-                100, 100, 100, 100, 100, 100, 0, 0,
-                100, 100, 100, 100, 100, 100, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0
+        simpleScreen.setData(0, new byte[]{
+                0, 10,
+                10, 0
         });
-        requirements.setData(1, new byte[]{
-                //  Bytes arranged in the shape of a cross, 8 by 8
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 100, 0, 100, 0, 0, 0,
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 100, 100, 100, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0
+        simpleScreen.setData(1, new byte[]{
+                30, 20,
+                20, 30
         });
 
+        Runner runner = new Runner(simpleScreen);
         runner.newFrame();
 
-        //  Draw the first sprite asset at coord 200, 100 on the screen
         runner.drawSpriteAt(0, 0, 0);
-        runner.drawSpriteAt(1, 8, 0);
+        runner.drawSpriteAt(1, 2, 2);
+        byte[][] expected = new byte[][]{
+                { 0, 10, 0, 0, 0, 0, 0, 0 },
+                { 10, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 30, 20, 0, 0, 0, 0 },
+                { 0, 0, 20, 30, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 }
+        };
 
         DisplayRaster raster = runner.newFrame();
+        byte[][] result = new RawByteDataRasterRenderer().renderRaster(raster);
+        assertArrayEquals(expected, result, "Should have rendered the sprites in the correct locations");
 
-        //  Display the frame for test
-        String expected = """
-                  XXX                          \s
-                  XXXX    XXX                  \s
-                  XXXX    X X                  \s
-                 XXXXXXX  XXX                  \s
-                 XXXXX X  XXX                  \s
-                XXXXXX    XXX                  \s
-                XXXXXX    XXX  \s
-                """.trim();
-
-        String render = new TextRender().renderRaster(raster);
-        assertEquals(expected, render.trim());
-        System.out.println(render);
     }
+
 
     //  Verify we get an illegal argument exception
     @Test
