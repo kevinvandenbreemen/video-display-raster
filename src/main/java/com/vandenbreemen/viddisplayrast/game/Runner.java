@@ -33,6 +33,10 @@ public class Runner {
     }
 
     public void drawSpriteAt(int spriteIndex, int x, int y) {
+        drawSpriteAt(spriteIndex, x, y, null);
+    }
+
+    public void drawSpriteAt(int spriteIndex, int x, int y, Byte skipByte) {
         //  Verify screen position is valid
         if(x < 0 || y < 0 || x + requirements.getSpriteWidth() > requirements.getScreenWidth() || y + requirements.getSpriteHeight() > requirements.getScreenHeight()){
             throw new IllegalArgumentException("Sprite position is invalid (x: " + x + ", y: " + y + ")");
@@ -46,7 +50,9 @@ public class Runner {
         //  Draw the sprite
         for(int spriteY=0; spriteY<requirements.getSpriteHeight(); spriteY++){
             for(int spriteX=0; spriteX<requirements.getSpriteWidth(); spriteX++){
-                raster.setPixel(x + spriteX, y + spriteY, spriteData[spriteY * requirements.getSpriteWidth() + spriteX]);
+                byte spriteByte = spriteData[spriteY * requirements.getSpriteWidth() + spriteX];
+                if(skipByte == null || spriteByte != skipByte)
+                    raster.setPixel(x + spriteX, y + spriteY, spriteByte);
             }
         }
     }

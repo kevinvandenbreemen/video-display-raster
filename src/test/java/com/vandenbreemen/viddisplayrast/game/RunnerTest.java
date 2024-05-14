@@ -124,6 +124,50 @@ class RunnerTest {
 
     }
 
+    @Test
+    public void shouldAllowForSkippingDrawingSpecificBytesWhenDrawing() {
+        GameDataRequirements simpleScreen = new GameDataRequirements(
+                8, 8,
+                2, 2,
+                8
+        );
+
+        simpleScreen.setData(0, new byte[]{
+                0, 10,
+                10, 0
+        });
+        simpleScreen.setData(1, new byte[]{
+                30, 20,
+                20, 30
+        });
+
+        Runner runner = new Runner(simpleScreen);
+        runner.newFrame();
+
+        runner.drawSpriteAt(0, 0, 0);
+        runner.drawSpriteAt(1, 2, 2);
+        byte[][] expected = new byte[][]{
+                { 0, 10, 0, 0, 0, 0, 0, 0 },
+                { 10, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 30, 20, 0, 0, 0, 0 },
+                { 0, 0, 20, 30, 10, 0, 0, 0 },
+                { 0, 0, 0, 10, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0 }
+        };
+
+        //  Draw first sprite, but asking the runner not to set bytes with a value of 0
+        runner.drawSpriteAt(0, 3, 3, (byte) 0);
+
+        DisplayRaster raster = runner.newFrame();
+        byte[][] result = new RawByteDataRasterRenderer().renderRaster(raster);
+
+        System.out.println(new TextRender().renderRaster(raster));
+
+        assertArrayEquals(expected, result, "Should have rendered the sprites in the correct locations");
+    }
+
 
     //  Verify we get an illegal argument exception
     @Test
