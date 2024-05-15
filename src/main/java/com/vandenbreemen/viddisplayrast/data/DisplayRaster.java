@@ -46,6 +46,14 @@ public class DisplayRaster {
      * @return
      */
     public DisplayRaster view(int fromX, int fromY, int toXInclusive, int toYInclusive) {
+
+        //  Validate incoming parameters
+        if(fromX < 0 || fromY < 0 || toXInclusive >= xDim || toYInclusive >= yDim){
+            throw new IllegalArgumentException(
+                    "Invalid view coordinates (fromX: " + fromX + ", fromY: " + fromY + ", toX: " + toXInclusive + ", toY: "
+                            + toYInclusive + "), vs actual dimensions (x: " + xDim + ", y: " + yDim + ")");
+        }
+
         DisplayRaster view = new DisplayRaster(toXInclusive - fromX + 1, toYInclusive - fromY + 1);
 
         //  Copy over using System.arrayCopy

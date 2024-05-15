@@ -58,4 +58,10 @@ class DisplayRasterTest {
 
     }
 
+    @Test
+    public void shouldPreventAttemptToCreateViewOutOfBounds() {
+        DisplayRaster raster = new DisplayRaster(SCREEN_WIDTH, SCREEN_HEIGHT);
+        assertThrows(IllegalArgumentException.class, () -> raster.view(0, 0, 9, 9));
+    }
+
 }
