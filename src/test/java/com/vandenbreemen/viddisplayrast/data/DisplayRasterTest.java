@@ -64,4 +64,15 @@ class DisplayRasterTest {
         assertThrows(IllegalArgumentException.class, () -> raster.view(0, 0, 9, 9));
     }
 
+    @Test
+    public void shouldPreventAttemptToCreateViewOutOfBoundsMessageShouldBeNice() {
+        DisplayRaster raster = new DisplayRaster(SCREEN_WIDTH, SCREEN_HEIGHT);
+        try {
+            raster.view(0, 0, 9, 9);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            assertEquals("Invalid view coordinates (fromX: 0, fromY: 0, toX: 9, toY: 9), vs actual dimensions (x: 8, y: 8)", e.getMessage());
+        }
+    }
+
 }
