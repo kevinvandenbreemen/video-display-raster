@@ -38,6 +38,7 @@ class DisplayRasterTest {
         raster.setPixel(2, 2, (byte) 40);
         raster.setPixel(3, 3, (byte) 10);
         raster.setPixel(4, 4, (byte) 20);
+        raster.setPixel(3, 4, (byte) 15);
         raster.setPixel(5, 5, (byte) 30);
 
         System.out.println(new TextRender().renderRaster(raster));
@@ -50,7 +51,7 @@ class DisplayRasterTest {
         byte[][] data = new RawByteDataRasterRenderer().renderRaster(view);
         byte[][] expected = new byte[][]{
                 {40, 0, 0},
-                {0, 10, 0},
+                {0, 10, 15},
                 {0, 0, 20}
         };
 
