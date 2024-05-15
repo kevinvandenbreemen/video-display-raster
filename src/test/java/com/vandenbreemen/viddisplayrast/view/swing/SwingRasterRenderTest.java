@@ -3,9 +3,6 @@ package com.vandenbreemen.viddisplayrast.view.swing;
 import com.vandenbreemen.viddisplayrast.data.DisplayRaster;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class SwingRasterRenderTest {
 
