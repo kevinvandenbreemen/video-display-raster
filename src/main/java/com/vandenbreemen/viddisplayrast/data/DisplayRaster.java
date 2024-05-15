@@ -58,9 +58,7 @@ public class DisplayRaster {
 
         //  Copy over using System.arrayCopy
         for(int x=fromX; x<=toXInclusive; x++){
-            for(int y=fromY; y<=toYInclusive; y++){
-                view.setPixel(x-fromX, y-fromY, getPixel(x, y));
-            }
+            System.arraycopy(raster[x], fromY, view.raster[x-fromX], 0, toYInclusive - fromY + 1);
         }
 
         return view;
