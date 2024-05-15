@@ -36,4 +36,23 @@ public class DisplayRaster {
     public void setPixel(int x, int y, byte b) {
         raster[x][y] = b;
     }
+
+    /**
+     * Generates a view of the raster from the specified coordinates
+     * @param fromX
+     * @param fromY
+     * @param toXInclusive
+     * @param toYInclusive
+     * @return
+     */
+    public DisplayRaster view(int fromX, int fromY, int toXInclusive, int toYInclusive) {
+        DisplayRaster view = new DisplayRaster(toXInclusive - fromX + 1, toYInclusive - fromY + 1);
+
+        //  Copy over using System.arrayCopy
+        for(int y=fromY; y<=toYInclusive; y++){
+            System.arraycopy(raster[y], fromX, view.raster[y - fromY], 0, toXInclusive - fromX + 1);
+        }
+
+        return view;
+    }
 }
