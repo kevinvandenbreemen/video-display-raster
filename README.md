@@ -7,6 +7,10 @@ You can use the ```ByteColorDataInteractor``` to work with colors.  For now all 
 # Displaying the Screen
 Pixels are displayed on the screen in the form of a ```DisplayRaster```.  A DisplayRaster is a 2D array of bytes, where each byte represents a color.
 
+## Viewing a subsection of the Raster
+You can also generate a DisplayRaster using a subsection of an existing DisplayRaster.  
+You do this using the ```DisplayRaster.view()``` method.
+
 ## Rendering the DisplayRaster
 You can render to any format you like by implementing the ```RasterRender``` interface.  This project provides you with a couple of test renderers to help get you started:
 
