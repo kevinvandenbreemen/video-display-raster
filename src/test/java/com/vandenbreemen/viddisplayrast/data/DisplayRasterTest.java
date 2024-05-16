@@ -50,9 +50,8 @@ class DisplayRasterTest {
 
         byte[][] data = new RawByteDataRasterRenderer().renderRaster(view);
         byte[][] expected = new byte[][]{
-                {40, 0, 0},
-                {0, 10, 15},
-                {0, 0, 20}
+                {40, 0,},
+                {0, 10,},
         };
 
         assertArrayEquals(expected, data);
@@ -87,12 +86,18 @@ class DisplayRasterTest {
         raster.setPixel(5, 5, (byte)120);
         raster.setPixel(4, 5, (byte)188);
 
-        DisplayRaster view = raster.view(2, 4, 3, 5);
+        DisplayRaster view = raster.view(2, 4, 4, 6);
 
         assertEquals((byte)100, view.getPixel(0, 0));
         assertEquals( (byte)132, view.getPixel(1, 0));
         assertEquals((byte)0, view.getPixel(0, 1));
         assertEquals((byte)0, view.getPixel(1, 1));
+    }
+
+    @Test
+    public void shouldPreventCreatingViewsWithInvalidCoordinates() {
+        DisplayRaster raster = new DisplayRaster(SCREEN_WIDTH, SCREEN_HEIGHT);
+        assertThrows(IllegalArgumentException.class, () -> raster.view(2, 2, 1, 1));
     }
 
 }

@@ -41,24 +41,29 @@ public class DisplayRaster {
      * Generates a view of the raster from the specified coordinates
      * @param fromX
      * @param fromY
-     * @param toXInclusive
-     * @param toYInclusive
+     * @param toX (non-inclusive)
+     * @param toY (non-inclusive)
      * @return
      */
-    public DisplayRaster view(int fromX, int fromY, int toXInclusive, int toYInclusive) {
+    public DisplayRaster view(int fromX, int fromY, int toX, int toY) {
 
         //  Validate incoming parameters
-        if(fromX < 0 || fromY < 0 || toXInclusive >= xDim || toYInclusive >= yDim){
+        if(fromX < 0 || fromY < 0 || toX >= xDim || toY >= yDim){
             throw new IllegalArgumentException(
-                    "Invalid view coordinates (fromX: " + fromX + ", fromY: " + fromY + ", toX: " + toXInclusive + ", toY: "
-                            + toYInclusive + "), vs actual dimensions (x: " + xDim + ", y: " + yDim + ")");
+                    "Invalid view coordinates (fromX: " + fromX + ", fromY: " + fromY + ", toX: " + toX + ", toY: "
+                            + toY + "), vs actual dimensions (x: " + xDim + ", y: " + yDim + ")");
         }
 
-        DisplayRaster view = new DisplayRaster(toXInclusive - fromX + 1, toYInclusive - fromY + 1);
+        //  Ensure fromX and fromY are less than toX and toY
+        if(fromX >= toX || fromY >= toY){
+            throw new IllegalArgumentException("Invalid view coordinates (fromX: " + fromX + ", fromY: " + fromY + ", toX: " + toX + ", toY: " + toY + ")");
+        }
+
+        DisplayRaster view = new DisplayRaster(toX - fromX, toY - fromY);
 
         //  Copy over using System.arrayCopy
-        for(int x=fromX; x<=toXInclusive; x++){
-            System.arraycopy(raster[x], fromY, view.raster[x-fromX], 0, toYInclusive - fromY + 1);
+        for(int x=fromX; x<toX; x++){
+            System.arraycopy(raster[x], fromY, view.raster[x-fromX], 0, toY - fromY);
         }
 
         return view;
