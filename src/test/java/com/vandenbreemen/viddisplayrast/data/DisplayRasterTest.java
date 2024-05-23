@@ -100,4 +100,22 @@ class DisplayRasterTest {
         assertThrows(IllegalArgumentException.class, () -> raster.view(2, 2, 1, 1));
     }
 
+    @Test
+    public void shouldProvideAHash() {
+        DisplayRaster raster = new DisplayRaster(10, 10);
+
+        raster.setPixel(2, 4, (byte)100);
+
+        int hash1 = raster.hashCode();
+
+        raster.setPixel(3, 4, (byte)132);
+
+        int hash2 = raster.hashCode();
+
+        assertNotEquals(hash1, hash2);
+
+        System.out.println("Hash1: "+hash1);
+        System.out.println("Hash2: "+hash2);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.vandenbreemen.viddisplayrast.data;
 
+import java.util.Arrays;
+
 /**
  * 2 dimensional array of bytes corresponding to pixels on the screen
  */
@@ -67,5 +69,14 @@ public class DisplayRaster {
         }
 
         return view;
+    }
+
+    /**
+     * Provides a hash based on the contents of the raster
+     * @return a hash based on the contents of the raster
+     */
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(raster);
     }
 }
