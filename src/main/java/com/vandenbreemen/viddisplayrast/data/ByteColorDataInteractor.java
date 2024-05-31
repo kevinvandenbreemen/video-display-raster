@@ -80,12 +80,27 @@ public class ByteColorDataInteractor {
         return colorByte & 0b00000011;
     }
 
-    /**
-     * Get the number of allowed colors for each channel
-     * @return
-     */
-    public int getChannelStepCount() {
-        return CHANNEL_STEP_COUNT;
+
+    private int getBrightnessDelta(int value) {
+        return  value < (CHANNEL_STEP_COUNT) ? 0 : value - CHANNEL_STEP_COUNT;
+    }
+
+    public byte convertIntColorToByte(int color32) {
+        int rawRed = (color32 & 0x00FF0000) >> 16;
+        int rawGreen = (color32 & 0x0000FF00) >> 8;
+        int rawBlue = color32 & 0x000000FF;
+
+        int rawStepRedInclBrightness = rawRed / COLOR_STEP;
+        int rawStepGreenInclBrightness = rawGreen / COLOR_STEP;
+        int rawStepBlueInclBrightness = rawBlue / COLOR_STEP;
+
+        int averageBrightnessDelta = (getBrightnessDelta(rawStepRedInclBrightness) + getBrightnessDelta(rawStepGreenInclBrightness) + getBrightnessDelta(rawStepBlueInclBrightness)) / 3;
+
+        return getColorByte(averageBrightnessDelta,
+                Math.min(rawStepRedInclBrightness, CHANNEL_STEP_COUNT),
+                Math.min(rawStepGreenInclBrightness, CHANNEL_STEP_COUNT),
+                Math.min(rawStepBlueInclBrightness, CHANNEL_STEP_COUNT));
+
     }
 
 

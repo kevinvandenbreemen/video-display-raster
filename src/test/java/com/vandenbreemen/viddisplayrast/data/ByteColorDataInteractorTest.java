@@ -138,4 +138,21 @@ class ByteColorDataInteractorTest {
         assertEquals(0, blue, "Blue value should be 0");
     }
 
+    @Test
+    public void shouldCalculateColorDimensionBasedOnInteger() {
+        ByteColorDataInteractor interactor = new ByteColorDataInteractor();
+
+        int colorval = Integer.MAX_VALUE;
+        int colorByteVal = interactor.convertIntColorToByte(colorval);
+
+        System.out.println(colorByteVal);
+
+        //  Print out individual bits
+        for(int i=0; i<8; i++){
+            System.out.print((colorByteVal & (1 << i)) > 0 ? "1" : "0");
+        }
+
+
+    }
+
 }
