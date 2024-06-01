@@ -56,4 +56,14 @@ public class Runner {
             }
         }
     }
+
+    /**
+     * Draws the contents of the specified raster onto this raster at the specified coordinates
+     * @param anotherRaster
+     * @param x
+     * @param y
+     */
+    public void drawRasterAt(DisplayRaster anotherRaster, int x, int y) {
+        this.raster.writeRaster(x, y, anotherRaster);
+    }
 }

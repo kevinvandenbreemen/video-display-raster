@@ -192,5 +192,39 @@ class RunnerTest {
 
     }
 
+    @Test
+    public void shouldDrawRawRasterAtLocation() {
+        Runner runner = new Runner(requirements);
+        DisplayRaster rawRaster = new DisplayRaster(3, 3);
+
+        //  Draw an X
+
+        rawRaster.setPixel(0, 0, (byte) 1);
+        rawRaster.setPixel(1, 1, (byte) 1);
+        rawRaster.setPixel(2, 2, (byte) 1);
+        rawRaster.setPixel(0, 2, (byte) 1);
+        rawRaster.setPixel(2, 0, (byte) 1);
+
+        System.out.println(new TextRender().renderRaster(rawRaster));
+
+        runner.drawRasterAt(rawRaster, 1, 1);
+
+        DisplayRaster rendered = runner.newFrame();
+
+        System.out.println(new TextRender().renderRaster(rendered));
+
+        //  Verify the X is displayed
+        assertEquals(0, rendered.getPixel(0, 0));
+        assertEquals(1, rendered.getPixel(1, 1));
+        assertEquals(1, rendered.getPixel(2, 2));
+        assertEquals(1, rendered.getPixel(3, 3));
+        assertEquals(1, rendered.getPixel(1, 3));
+        assertEquals(1, rendered.getPixel(3, 1));
+        assertEquals(0, rendered.getPixel(4, 4));
+        assertEquals(0, rendered.getPixel(4, 1));
+
+
+    }
+
 
 }

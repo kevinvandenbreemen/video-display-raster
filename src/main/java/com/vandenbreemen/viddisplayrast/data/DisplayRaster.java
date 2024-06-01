@@ -71,6 +71,18 @@ public class DisplayRaster {
         return view;
     }
 
+    private void copyRow(byte[] source, byte[] dest, int to){
+        System.arraycopy(source, 0, dest, to, source.length);
+    }
+
+    public void writeRaster(int x, int y, DisplayRaster anotherRaster) {
+
+        //  Do this with system array copy for each row:
+        for (int j = 0; j < anotherRaster.getYDim(); j++) {
+            copyRow(anotherRaster.raster[j], raster[j + y], x);
+        }
+    }
+
     /**
      * Provides a hash based on the contents of the raster
      * @return a hash based on the contents of the raster
