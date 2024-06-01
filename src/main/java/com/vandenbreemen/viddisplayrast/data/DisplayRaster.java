@@ -77,6 +77,16 @@ public class DisplayRaster {
 
     public void writeRaster(int x, int y, DisplayRaster anotherRaster) {
 
+        //  Validate raster can fit in here
+        if(x + anotherRaster.getXDim() > xDim || y + anotherRaster.getYDim() > yDim){
+            throw new IllegalArgumentException("Raster cannot fit in this raster at the specified coordinates (x: " + x + ", y: " + y + ")");
+        }
+
+        //  Don't allow negative coordinates
+        if(x < 0 || y < 0){
+            throw new IllegalArgumentException("Raster cannot be written at negative coordinates (x: " + x + ", y: " + y + ")");
+        }
+
         //  Do this with system array copy for each row:
         for (int j = 0; j < anotherRaster.getYDim(); j++) {
             copyRow(anotherRaster.raster[j], raster[j + y], x);

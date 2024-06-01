@@ -226,5 +226,41 @@ class RunnerTest {
 
     }
 
+    @Test
+    public void shouldNotAllowWritingAnotherRasterThatRunsOverEdges() {
+        Runner runner = new Runner(requirements);
+        DisplayRaster rawRaster = new DisplayRaster(3, 3);
+
+        //  Draw an X
+
+        rawRaster.setPixel(0, 0, (byte) 1);
+        rawRaster.setPixel(1, 1, (byte) 1);
+        rawRaster.setPixel(2, 2, (byte) 1);
+        rawRaster.setPixel(0, 2, (byte) 1);
+        rawRaster.setPixel(2, 0, (byte) 1);
+
+        System.out.println(new TextRender().renderRaster(rawRaster));
+
+        assertThrows(IllegalArgumentException.class, () -> runner.drawRasterAt(rawRaster, 99, 74));
+    }
+
+    @Test
+    public void shouldNotAllowWritingAnotherRasterBelowZero() {
+        Runner runner = new Runner(requirements);
+        DisplayRaster rawRaster = new DisplayRaster(3, 3);
+
+        //  Draw an X
+
+        rawRaster.setPixel(0, 0, (byte) 1);
+        rawRaster.setPixel(1, 1, (byte) 1);
+        rawRaster.setPixel(2, 2, (byte) 1);
+        rawRaster.setPixel(0, 2, (byte) 1);
+        rawRaster.setPixel(2, 0, (byte) 1);
+
+        System.out.println(new TextRender().renderRaster(rawRaster));
+
+        assertThrows(IllegalArgumentException.class, () -> runner.drawRasterAt(rawRaster, -1, -1));
+    }
+
 
 }
