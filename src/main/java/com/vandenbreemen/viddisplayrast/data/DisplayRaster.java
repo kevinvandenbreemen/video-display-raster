@@ -79,7 +79,8 @@ public class DisplayRaster {
 
         //  Validate raster can fit in here
         if(x + anotherRaster.getXDim() > xDim || y + anotherRaster.getYDim() > yDim){
-            throw new IllegalArgumentException("Raster cannot fit in this raster at the specified coordinates (x: " + x + ", y: " + y + ")");
+            throw new IllegalArgumentException("Raster cannot fit in this raster at the specified coordinates (x: " + x + ", y: " + y + ") since its size is "
+                    + anotherRaster.getXDim() + "x" + anotherRaster.getYDim() + " and this raster is " + xDim + "x" + yDim + ")");
         }
 
         //  Don't allow negative coordinates
