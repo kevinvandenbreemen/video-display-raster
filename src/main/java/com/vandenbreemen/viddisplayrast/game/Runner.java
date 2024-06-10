@@ -44,8 +44,13 @@ public class Runner {
 
         //  Get the sprite data
         byte[] spriteData = new byte[requirements.getSpriteWidth() * requirements.getSpriteHeight()];
-        System.arraycopy(requirements.getSpriteData(),
-                spriteIndex * requirements.getSpriteWidth() * requirements.getSpriteHeight(), spriteData, 0, spriteData.length);
+        try {
+            System.arraycopy(requirements.getSpriteData(),
+                    spriteIndex * requirements.getSpriteWidth() * requirements.getSpriteHeight(), spriteData, 0, spriteData.length);
+        } catch (ArrayIndexOutOfBoundsException e){
+            //  Draw the default sprite instead
+            System.arraycopy(requirements.getDefaultSprite(), 0, spriteData, 0, spriteData.length);
+        }
 
         //  Draw the sprite
         for(int spriteY=0; spriteY<requirements.getSpriteHeight(); spriteY++){

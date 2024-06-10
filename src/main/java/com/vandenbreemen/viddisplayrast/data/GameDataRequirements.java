@@ -15,6 +15,11 @@ public class GameDataRequirements {
 
     private final byte[] spriteData;
 
+    /**
+     * A default sprite for highlighting error cases
+     */
+    private final byte[] defaultSprite;
+
     public GameDataRequirements(int screenWidth, int screenHeight, int spriteWidth, int spriteHeight, int maxBytes){
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -22,6 +27,19 @@ public class GameDataRequirements {
         this.spriteHeight = spriteHeight;
         this.maxBytes = maxBytes;
         this.spriteData = new byte[maxBytes];   //  XXX Where does this actually come from???
+
+        this.defaultSprite = new byte[spriteWidth * spriteHeight];
+        //  Draw a black X on a white background
+        for(int y=0; y<spriteHeight; y++){
+            for(int x=0; x<spriteWidth; x++){
+                if(x == y || x == spriteWidth - y - 1){
+                    defaultSprite[y * spriteWidth + x] = 127;
+                }
+                else{
+                    defaultSprite[y * spriteWidth + x] = 1;
+                }
+            }
+        }
     }
 
     @Override
@@ -47,6 +65,14 @@ public class GameDataRequirements {
 
     public int getMaxBytes() {
         return maxBytes;
+    }
+
+    /**
+     * Get default sprite tile for use in error cases
+     * @return
+     */
+    public byte[] getDefaultSprite() {
+        return defaultSprite;
     }
 
     /**

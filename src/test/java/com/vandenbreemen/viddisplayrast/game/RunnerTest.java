@@ -67,6 +67,7 @@ class RunnerTest {
         //  Draw the first sprite asset at coord 200, 100 on the screen
         runner.drawSpriteAt(0, 50, 60);
         runner.drawSpriteAt(1, 70, 60);
+        runner.drawSpriteAt(2222332, 24, 25); //  Should draw the default sprite
 
         DisplayRaster raster = runner.newFrame();
 
